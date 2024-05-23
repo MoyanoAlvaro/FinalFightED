@@ -9,7 +9,7 @@ package com.krippulo.finalfight;
  *
  * @author krip
  */
-Guerrero{
+public final class Guerrero extends Villano implements Defensa{
     public static final String INICIAL="G";
     private static final int RECOMPENSA=10;
 
@@ -17,7 +17,7 @@ Guerrero{
     
     public Guerrero() {
         super(INICIAL,RECOMPENSA);
-        arma=
+        arma=Arma.values()[(int) (Math.random()*Arma.values().length)];
     }
     
     //----------------------- PRESENTACIÓN ---------------------------------
@@ -55,6 +55,5 @@ Guerrero{
             }
         }
     }
-    
-    
+
 }
