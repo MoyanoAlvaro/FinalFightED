@@ -9,7 +9,7 @@ package com.krippulo.finalfight;
  *
  * @author krip
  */
-Villano{
+public abstract class Villano extends Personaje implements Comparable{
     //Constantes
     public static final int TOPE_ENEMIGOS=4;//para ajustar la dificultad del juego
     private static final int TOPE_BATALLA=2;//para ajustar la dificultad del juego
@@ -103,7 +103,7 @@ Villano{
     }
     
     //---------------------- MÉTODOS DE CLASE ----------------------------------
-    generaVillanoaleatorio(){
+    public static Villano generaVillanoaleatorio(){
         //Si se ha alcanzado el tope de villanos, ya no se añaden más
         //En caso contrario, se crea un nuevo villano y se devuelve 
         if(contadorTotal>=TOPE_ENEMIGOS){
@@ -114,7 +114,7 @@ Villano{
         }
     }
     
-    generaNombreAleatorio(String inicial){
+    public static  String generaNombreAleatorio(String inicial){
         StringBuilder nombre=new StringBuilder(inicial);
         nombre.append(vocalAleatoria());
         nombre.append(consonanteAleatoria());
@@ -128,13 +128,26 @@ Villano{
         return nombre.toString();
     }
     
-    vocalAleatoria(){
+    public static  String vocalAleatoria(){
         int pos=(int)(Math.random()*VOCALES.length());
         return VOCALES.substring(pos,pos+1);
     }
     
-    consonanteAleatoria(){
+    public static String consonanteAleatoria(){
         int pos=(int)(Math.random()*CONSONANTES.length());
         return CONSONANTES.substring(pos,pos+1);
+    }
+
+    //----------------------- Ejercicio 7 ---------------------------------
+
+
+    @Override
+    public int compareTo(Object o) {
+        Villano otro=(Villano)o;
+        if (this.getEnergia()>otro.getEnergia()){
+            return 1;
+        } else if (this.getEnergia()<otro.getEnergia()) {
+            return -1;
+        }else return this.getId()-otro.getId();
     }
 }
