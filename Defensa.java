@@ -9,13 +9,13 @@ package com.krippulo.finalfight;
  *
  * @author krip
  */
-Defensa {
+public interface Defensa{
     public static final double ESQUIVA_MINIMA=0.1;
     public static final double ESQUIVA_MAXIMA=0.9;
     public static final double PARADA_MINIMA=0;
     public static final double PARADA_MAXIMA=0.9;
     
-    esquivar(int energiaDefensor, Arma armaDefensiva) {
+    default boolean esquivar(int energiaDefensor, Arma armaDefensiva) {
         double probabilidad=armaDefensiva.esquive*energiaDefensor/100;
         probabilidad=Math.max(ESQUIVA_MINIMA, probabilidad);
         probabilidad=Math.min(ESQUIVA_MAXIMA, probabilidad);
@@ -26,7 +26,7 @@ Defensa {
         }
     }
     
-    parar(int fuerzaAtaque, int energiaDefensor, Arma armaDefensiva){
+    default int parar(int fuerzaAtaque, int energiaDefensor, Arma armaDefensiva){
         double porcentajeDefensa=armaDefensiva.parada*energiaDefensor/100;
         porcentajeDefensa=Math.max(PARADA_MINIMA, porcentajeDefensa);
         porcentajeDefensa=Math.min(porcentajeDefensa, PARADA_MAXIMA);

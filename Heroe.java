@@ -6,20 +6,22 @@
 package com.krippulo.finalfight;
 
 import java.util.Arrays;
+import java.util.TreeSet;
 
 /**
  *
  * @author krip
  */
-Heroe{
+public final class Heroe extends Personaje implements Defensa{
     //Constantes
     private static final int VIDA_INICIAL=200;
 
     //Propiedades de instancia
     private Arma arma;
     private int bajas;
+    private String nombre;
     
-    Heroe() {
+    public Heroe(String nombre, Arma arma) {
         super(nombre, VIDA_INICIAL);
         this.arma=arma;
         bajas=0;
@@ -27,8 +29,8 @@ Heroe{
 
     //------------------------  ACCIONES ---------------------------------------
     public Villano[] ataqueMele(Villano[] villanos){
-        Villano[] victimas;//para los que mate
-        Villano[] resultado;
+        TreeSet<Villano> victimas=new TreeSet<>();//para los que mate
+        //Villano[] resultado;
         int contador;
         //Calculo cuántos hay 'atacables'
         int atacables=0;
