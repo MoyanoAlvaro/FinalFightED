@@ -95,6 +95,30 @@ INSERT INTO Fallecimientos (idPaciente, fecha) VALUES
 -- Inserción de datos de ejemplo en la tabla Recuperaciones
 INSERT INTO Recuperaciones (idPaciente, fecha) VALUES
 (2, '2022-01-03'),
-(4, '2022-01-04'),
-(6, '2022-01-04'),
-(6, '2022-01-04')
+(4, '2022-01-04');
+
+DELIMITER //
+
+CREATE PROCEDURE InsertarPacienteYCaso (
+    IN pNombre VARCHAR(255),
+    IN pEdad INT,
+    IN pSexo ENUM('Masculino', 'Femenino', 'Otro'),
+    IN pIdCiudad INT,
+    IN pFechaCaso DATE
+)
+BEGIN
+    DECLARE vIdPaciente INT;
+
+    -- Insertar un nuevo paciente
+    INSERT INTO Pacientes (nombre, edad, sexo, idCiudad)
+    VALUES (pNombre, pEdad, pSexo, pIdCiudad);
+
+    -- Obtener el id del paciente insertado
+    SET vIdPaciente = LAST_INSERT_ID();
+
+    -- Insertar un nuevo caso para el paciente
+    INSERT INTO Casos (idPaciente, fecha)
+    VALUES (vIdPaciente, pFechaCaso);
+END //
+
+DELIMITER ;
