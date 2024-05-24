@@ -144,4 +144,4 @@ BEGIN
 END //
 
 DELIMITER ;
-SELECT ObtenerNombrePaisPorPaciente(1);
+SELECT ObtenerNombrePaisPorPaciente(1)
