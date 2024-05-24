@@ -50,6 +50,10 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
     fecha DATE,
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
+CREATE TABLE IF NOT EXISTS Columbia (
+idMalork int AUTO_INCREMENT PRIMARY KEY,
+fechalocal DATE
+);
 
 
 
