@@ -95,6 +95,53 @@ INSERT INTO Fallecimientos (idPaciente, fecha) VALUES
 -- Inserción de datos de ejemplo en la tabla Recuperaciones
 INSERT INTO Recuperaciones (idPaciente, fecha) VALUES
 (2, '2022-01-03'),
-(4, '2022-01-04'),
-(6, '2022-01-04'),
-(6, '2022-01-04')
+(4, '2022-01-04');
+
+DELIMITER //
+
+CREATE PROCEDURE InsertarPacienteYCaso (
+    IN pNombre VARCHAR(255),
+    IN pEdad INT,
+    IN pSexo ENUM('Masculino', 'Femenino', 'Otro'),
+    IN pIdCiudad INT,
+    IN pFechaCaso DATE
+)
+BEGIN
+    DECLARE vIdPaciente INT;
+
+    -- Insertar un nuevo paciente
+    INSERT INTO Pacientes (nombre, edad, sexo, idCiudad)
+    VALUES (pNombre, pEdad, pSexo, pIdCiudad);
+
+    -- Obtener el id del paciente insertado
+    SET vIdPaciente = LAST_INSERT_ID();
+
+    -- Insertar un nuevo caso para el paciente
+    INSERT INTO Casos (idPaciente, fecha)
+    VALUES (vIdPaciente, pFechaCaso);
+END //
+
+DELIMITER ;
+
+CALL InsertarPacienteYCaso('Luis', 28, 'Masculino', 1, '2022-01-06');
+
+DELIMITER //
+
+CREATE FUNCTION ObtenerNombrePaisPorPaciente (
+    pIdPaciente INT
+) RETURNS VARCHAR(255)
+BEGIN
+    DECLARE vNombrePais VARCHAR(255);
+
+    -- Obtener el nombre del país del paciente
+    SELECT Paises.nombre INTO vNombrePais
+    FROM Pacientes
+    JOIN Ciudades ON Pacientes.idCiudad = Ciudades.idCiudad
+    JOIN Paises ON Ciudades.idPais = Paises.idPais
+    WHERE Pacientes.idPaciente = pIdPaciente;
+
+    RETURN vNombrePais;
+END //
+
+DELIMITER ;
+SELECT ObtenerNombrePaisPorPaciente(1);
