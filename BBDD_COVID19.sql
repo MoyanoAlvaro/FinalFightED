@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
 CREATE TABLE IF NOT EXISTS Columbia (
 idMalork int AUTO_INCREMENT PRIMARY KEY,
 fechalocal DATE
+pepe VARCHAR(30),
 );
 
 
