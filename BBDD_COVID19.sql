@@ -95,4 +95,6 @@ INSERT INTO Fallecimientos (idPaciente, fecha) VALUES
 -- Inserción de datos de ejemplo en la tabla Recuperaciones
 INSERT INTO Recuperaciones (idPaciente, fecha) VALUES
 (2, '2022-01-03'),
-(4, '2022-01-04');
+(4, '2022-01-04'),
+(6, '2022-01-04'),
+(6, '2022-01-04')
