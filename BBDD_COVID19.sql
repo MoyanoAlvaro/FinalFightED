@@ -53,6 +53,25 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
 
+-- Creación de la tabla Hospitales
+CREATE TABLE IF NOT EXISTS Hospitales (
+    idHospital INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255),
+    idCiudad INT,
+    FOREIGN KEY (idCiudad) REFERENCES Ciudades(idCiudad)
+);
+
+-- Creación de la tabla Tratamientos
+CREATE TABLE IF NOT EXISTS Tratamientos (
+    idTratamiento INT AUTO_INCREMENT PRIMARY KEY,
+    idPaciente INT,
+    nombreTratamiento VARCHAR(255),
+    fechaInicio DATE,
+    fechaFin DATE,
+    FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
+);
+
 -- Inserción de datos de ejemplo en la tabla Paises
 INSERT INTO Paises (nombre) VALUES
 ('Estados Unidos'),
@@ -95,6 +114,22 @@ INSERT INTO Fallecimientos (idPaciente, fecha) VALUES
 INSERT INTO Recuperaciones (idPaciente, fecha) VALUES
 (2, '2022-01-03'),
 (4, '2022-01-04');
+
+-- Inserción de datos de ejemplo en la tabla Hospitales
+INSERT INTO Hospitales (nombre, direccion, idCiudad) VALUES
+('Hospital General de Nueva York', '123 Main St, Nueva York', 1),
+('Hospital de Río de Janeiro', '456 Rua Principal, Río de Janeiro', 2),
+('Hospital de Bombay', '789 Calle Central, Bombay', 3),
+('Hospital de Moscú', '101 Avenida Principal, Moscú', 4),
+('Hospital de París', '202 Rue Principale, París', 5);
+
+-- Inserción de datos de ejemplo en la tabla Tratamientos
+INSERT INTO Tratamientos (idPaciente, nombreTratamiento, fechaInicio, fechaFin) VALUES
+(1, 'Tratamiento A', '2022-01-01', '2022-01-10'),
+(2, 'Tratamiento B', '2022-01-02', '2022-01-12'),
+(3, 'Tratamiento C', '2022-01-03', '2022-01-13'),
+(4, 'Tratamiento D', '2022-01-04', '2022-01-14'),
+(5, 'Tratamiento E', '2022-01-05', '2022-01-15');
 
 DELIMITER //
 
