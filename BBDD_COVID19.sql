@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Tratamientos (
     idPaciente INT,
     nombreTratamiento VARCHAR(255),
     fechaInicio DATE,
-    fechaFin DATE
+    fechaFin DATE,
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
 
