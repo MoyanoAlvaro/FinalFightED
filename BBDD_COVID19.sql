@@ -51,14 +51,6 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
 
-
-Create table if not exists remedio (
-    idRecuperacion INT AUTO_INCREMENT PRIMARY KEY,
-    idPaciente INT,
-    fecha DATE,
-    FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
-);
-
 -- Inserción de datos de ejemplo en la tabla Paises
 INSERT INTO Paises (nombre) VALUES
 ('Estados Unidos'),
