@@ -48,6 +48,7 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
     idRecuperacion INT AUTO_INCREMENT PRIMARY KEY,
     idPaciente INT,
     fecha DATE,
+    nota int,
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
 
