@@ -6,7 +6,8 @@ USE COVID19;
 -- Creación de la tabla Paises
 CREATE TABLE IF NOT EXISTS Paises (
     idPais INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL
+    nombre VARCHAR(255) NOT NULL,
+    UNIQUE(nombre)
 );
 
 -- Creación de la tabla Ciudades
@@ -14,14 +15,15 @@ CREATE TABLE IF NOT EXISTS Ciudades (
     idCiudad INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
     idPais INT,
-    FOREIGN KEY (idPais) REFERENCES Paises(idPais)
+    FOREIGN KEY (idPais) REFERENCES Paises(idPais),
+    UNIQUE(nombre, idPais)
 );
 
 -- Creación de la tabla Pacientes
 CREATE TABLE IF NOT EXISTS Pacientes (
     idPaciente INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    edad INT,
+    edad INT CHECK (edad >= 0),
     sexo ENUM('Masculino', 'Femenino', 'Otro'),
     idCiudad INT,
     FOREIGN KEY (idCiudad) REFERENCES Ciudades(idCiudad)
@@ -50,13 +52,6 @@ CREATE TABLE IF NOT EXISTS Recuperaciones (
     fecha DATE,
     FOREIGN KEY (idPaciente) REFERENCES Pacientes(idPaciente)
 );
-CREATE TABLE IF NOT EXISTS Columbia (
-idMalork int AUTO_INCREMENT PRIMARY KEY,
-fechalocal DATE,
-);
-
-
-
 
 -- Inserción de datos de ejemplo en la tabla Paises
 INSERT INTO Paises (nombre) VALUES
@@ -103,6 +98,7 @@ INSERT INTO Recuperaciones (idPaciente, fecha) VALUES
 
 DELIMITER //
 
+-- Procedimiento almacenado para insertar un nuevo paciente y un caso
 CREATE PROCEDURE InsertarPacienteYCaso (
     IN pNombre VARCHAR(255),
     IN pEdad INT,
@@ -112,6 +108,14 @@ CREATE PROCEDURE InsertarPacienteYCaso (
 )
 BEGIN
     DECLARE vIdPaciente INT;
+
+    -- Manejo de errores
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
 
     -- Insertar un nuevo paciente
     INSERT INTO Pacientes (nombre, edad, sexo, idCiudad)
@@ -123,14 +127,18 @@ BEGIN
     -- Insertar un nuevo caso para el paciente
     INSERT INTO Casos (idPaciente, fecha)
     VALUES (vIdPaciente, pFechaCaso);
+
+    COMMIT;
 END //
 
 DELIMITER ;
 
+-- Llamada de ejemplo al procedimiento almacenado
 CALL InsertarPacienteYCaso('Luis', 28, 'Masculino', 1, '2022-01-06');
 
 DELIMITER //
 
+-- Función para obtener el nombre del país de un paciente
 CREATE FUNCTION ObtenerNombrePaisPorPaciente (
     pIdPaciente INT
 ) RETURNS VARCHAR(255)
@@ -148,4 +156,6 @@ BEGIN
 END //
 
 DELIMITER ;
-SELECT ObtenerNombrePaisPorPaciente(1)
+
+-- Llamada de ejemplo a la función
+SELECT ObtenerNombrePaisPorPaciente(1);
