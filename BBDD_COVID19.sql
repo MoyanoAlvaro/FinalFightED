@@ -94,7 +94,7 @@ INSERT INTO Pacientes (nombre, edad, sexo, idCiudad) VALUES
 ('María', 45, 'Femenino', 2),
 ('Pedro', 30, 'Masculino', 3),
 ('Ana', 55, 'Femenino', 4),
-('Carlos', 40, 'Masculino', 5)
+('Carlos', 40, 'Masculino', 5);
 
 -- Inserción de datos de ejemplo en la tabla Casos
 INSERT INTO Casos (idPaciente, fecha) VALUES
