@@ -193,4 +193,4 @@ END //
 DELIMITER ;
 
 -- Llamada de ejemplo a la función
-SELECT ObtenerNombrePaisPorPaciente(1
+SELECT ObtenerNombrePaisPorPaciente(1);
